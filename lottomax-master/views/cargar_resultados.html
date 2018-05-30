@@ -1,0 +1,240 @@
+<!-- BEGIN: contenido -->       
+<table width="800" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+	<tr>
+		<td >
+	        <br /> 
+            <div id="message" class="message" >{mensaje}</div>        
+                 
+                        <!-- BEGIN: buscar_resultados -->
+
+                        <table width="800" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+                            <tr>
+                                <td>
+                                    <div id="main">
+
+                                        <br />
+
+                                        <form id="frm1" method="get" enctype="multipart/form-data" action="{pagina_principal}" xml:lang="es" lang="es">
+                                            <input style="border: hidden" type="hidden" name="op" id="idop" value="{opcion_sistema}"/>
+                                            <input style="border: hidden" type="hidden" name="accion" id="idaccion" value="cargar_resultados"/>
+                                             <fieldset>
+                                                   <table align="center" border="0" cellpadding="2" cellspacing="0" width="80%">
+                                                        <tr>
+                                                            <td><span class="requerido">*</span> Fecha:</td>
+                                                            <td><input type="text" id="fecha" name="txt_fecha" value="{fecha}"></td>
+
+                                                            <script type="text/javascript">
+                                                             $(function() {
+                                                                 $("#fecha").datepicker({
+                                                                    changeMonth: true,
+                                                                    changeYear: true,
+                                                                    showOn: 'both',
+                                                                    buttonText: 'Calendario',
+																	dateFormat:'dd/mm/yy',
+                                                                    buttonImage: "./images/calendar.jpg",
+                                                                    buttonImageOnly: true,
+                                                                    maxDate: '+0d'
+                                                                    }).addClass("embed").attr('readonly','readonly');
+                                                              });
+                                                            </script>
+
+
+                                                            <td><input type="radio" id="radio_periodo"  name="radio_periodo" value="1">Ma&ntilde;ana
+                                                                <input type="radio" id="radio_periodo"  name="radio_periodo" value="2">Tarde
+                                                                <input type="radio" id="radio_periodo"  name="radio_periodo" value="3">Noche
+                                                                <input type="radio" id="radio_periodo"  name="radio_periodo" value="*" checked>Todos</td>
+                                                        </tr>
+                                                    </table>
+                                                </fieldset>
+
+                                            <div class="botones">
+
+                                                    <input  id="btnok" name="btnentrar" value="Cargar" type="submit" class="boton"/>&nbsp;&nbsp;&nbsp;
+
+                                                    <input  id="btncancel" name="btncancelar" value="Cancelar" type="button" class="boton" onclick="location='{ruta_regreso}'"/>
+
+                                            </div>
+                                        </form>
+                                       </div>
+                                </td>
+                            </tr>
+                        </table>
+                      
+                        <!-- END: buscar_resultados -->
+
+                        <!-- BEGIN: lista_cargar_resultados -->
+                        <form id="frm2" method="post" enctype="multipart/form-data" action="{pagina_principal}" xml:lang="es" lang="es">
+
+                             <input style="border: hidden" type="hidden" name="op" id="idop" value="{opcion_sistema}"/>
+                             <input style="border: hidden" type="hidden" name="accion" id="idaccion" value="save"/>
+                             <input style="border: hidden" type="hidden" name="fecha" id="fecha" value="{fecha}"/>
+							 <input style="border: hidden" type="hidden" name="sorteosnocargados" id="sorteosnocargados" value="{sorteosnocargados}"/>
+
+                             <fieldset>
+                             <legend>Resultados a la Fecha: {fecha}</legend>
+                             
+                            <table id="tb1" align="center" class="table_list" cellpadding="1" cellspacing="1" style="font-size:9.5px;">
+                                    <thead>
+                                            <tr>
+                                            		<th class="title header" scope="col"  width="20">&nbsp;</th>
+                                                    <th class="title header" scope="col">Sorteos</th>
+                                                    <th class="title header" scope="col">Triple</th>
+                                                    <th class="title header" scope="col">Terminal</th>
+                                                    <th class="title header" scope="col">Signo</th>
+                                                    <th class="title header" scope="col">Aproximaci&oacute;n por Arriba</th>
+                                                    <th class="title header" scope="col">Aproximaci&oacute;n por Abajo</th>
+                                            </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                            <!-- BEGIN: lista -->
+
+                                            <tr class="{estilo_fila}">
+													
+																								
+													<td class="lista1" scope="row" align="center">
+														<!-- BEGIN: modificar -->
+														<a href="{pagina_principal}?op={opcion_sistema}&amp;accion=mod&amp;id={id_Sorteo}&amp;fecha={fecha}&amp;bajado={bajado}" title="Ver / Modificar">
+							                            	<img src="./images/lapiz.gif" border="0" />
+							                           	</a>
+														
+														<!-- END: modificar -->
+													</td>                                                      <td align="left">&nbsp;{sorteo}</td>
+                                                    <td align="left">&nbsp;{numero}</td>
+                                                    <td align="left">&nbsp;{terminal}</td>
+                                                    <td align="left">&nbsp;
+                                                        <!-- BEGIN: lista_zodiacal -->
+                                                        <select id="op_zodiacal" name="zodiacal-{id_sorteo}" >
+                                                         
+                                                            <!-- BEGIN: op_zodiacal -->
+                                                            <option value="{Id_zodiacal}"{selected} >{nombre_zodiacal}</option>
+                                                            <!-- END: op_zodiacal -->
+                                                        </select>
+                                                        <!-- END: lista_zodiacal -->
+														<!-- BEGIN: text_zodiacal -->
+                                                       
+													   {text_zodiacal}
+													   
+                                                        <!-- END: text_zodiacal  -->
+														
+                                                    </td>
+                                                    <td align="left">&nbsp;{aprox_arriba}</td>
+                                                    <td align="left">&nbsp;{aprox_abajo}</td>
+                                            </tr>
+                                            <!-- END: lista -->
+
+                                            <!-- BEGIN: no_lista -->
+
+                                            <tr class="even">
+                                                    <td align="center" colspan="6" class="odd"><br />{sin_listado}<br />&nbsp;</td>
+                                            </tr>
+                                            <!-- END: no_lista -->
+
+                                    </tbody>
+                                    <tfoot>
+                                </tfoot>
+                            </table>
+                             </fieldset>
+                            <div class="paginas">{paginacion}</div>
+
+
+                            <div class="paginas">{faltantes}</div>
+                            
+                            <div class="botones">
+                                    <input  id="btnok" name="btnentrar" value="Guardar" type="submit" class="boton"/>&nbsp;&nbsp;&nbsp;
+                                    <input  id="btncancel" name="btncancelar" value="Cancelar" type="button" class="boton" onclick="location='{ruta_regreso}'"/>
+
+                            </div>
+                    </form>
+			<!-- END: lista_cargar_resultados -->
+			<!-- BEGIN: formulario -->
+		
+			<div id="formularios" align="center">
+		
+				<form  name="frm1" id="frm1" method="post" enctype="multipart/form-data" action="{pagina_principal}" xml:lang="es" lang="es">
+		
+					<input style="border: hidden" type="hidden" name="op" id="idop" value="{opcion_sistema}"/>
+		
+					<input style="border: hidden" type="hidden" name="accion" id="idaccion" value="{tipo_accion}"/>
+					<input style="border: hidden" type="hidden" name="fecha" id="fecha" value="{fecha}"/>
+                    <input style="border: hidden" type="hidden" name="id_resultado" id="id_resultado" value="{id_resultado}"/>					
+ 					<input style="border: hidden" type="hidden" name="bajado" id="bajado" value="{bajado}"/>					
+
+					<!-- BEGIN: identificador -->
+		
+					<input style="border: hidden" type="hidden" name="idreferencia" id="idreferencia" value="{id_Sorteo}"/>
+		
+					<!-- END: identificador -->	
+									
+		
+					<fieldset>
+		
+						<legend>Formulario de Modificar Resultado:</legend>
+		
+						<table align="center" border="0" cellpadding="2" cellspacing="0" width="80%">
+		
+							<tr><td colspan="2" style="text-align:right;">(*)Campos Requeridos&nbsp;</td></tr>
+							
+							<tr>
+		
+								<td class="tag" width="230"><span class="requerido">*</span> Nombre Completo:</td>		
+								<td>
+								<input id="txt_numero" name="txt_numero" size="12" type="text" maxlength="3" />
+								</td>
+		
+							</tr>
+
+		
+							<tr><td colspan="2"></td></tr>
+                            <tr>
+        
+                                <td class="tag" width="230"><span class="requerido">*</span> Signo:</td>        
+                                <td>
+        
+                                <!-- BEGIN: lista_zodiacal -->
+                                <select id="op_zodiacal" name="zodiacal" >
+                                    <!-- <option value="" >Seleccione...</option>  -->
+                                    <!-- BEGIN: op_zodiacal -->
+                                    <option value="{Id_zodiacal}"{selected} >{nombre_zodiacal}</option>
+                                    <!-- END: op_zodiacal -->
+                                </select>
+                                <!-- END: lista_zodiacal -->
+        
+                                </td>
+        
+                            </tr>                            
+		
+							<tr><td colspan="2"></td></tr>                                                                                        
+		
+						</table>
+		
+					</fieldset>
+		
+					<div class="botones" align="center">
+		
+						<input  id="btnok" name="btnentrar" value="{tag_boton}" type="submit" class="boton"/>
+
+						&nbsp;&nbsp;&nbsp;
+		
+						<input  id="btncancel" name="btncancelar" value="Regresar" type="button" class="boton" onclick="location='{ruta_regreso}'"/>
+						
+					</div>
+					
+				</form>			 
+		
+			</div>
+		
+			<!-- END: formulario -->			
+			
+	
+                        <br />	<br />
+		
+		</td>	
+	</tr>
+
+    </table>
+     
+<!-- END: contenido -->       
+
+
